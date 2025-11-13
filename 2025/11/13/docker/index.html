@@ -6,15 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2025 | Hexo</title>
+  <title>Docker基础命令以及DockerFile文件编写 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2025/index.html">
+  <meta name="description" content="Docker基础命令以及DockerFile文件编写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker基础命令以及DockerFile文件编写">
+<meta property="og:url" content="http://example.com/2025/11/13/docker/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Docker基础命令以及DockerFile文件编写">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\sy\%E5%AE%9E%E4%B9%A0%E6%95%99%E8%AE%AD\docker.assets\image-20251112180040131.png">
+<meta property="og:image" content="c:\Users\sy\%E5%AE%9E%E4%B9%A0%E6%95%99%E8%AE%AD\docker.assets\image-20251113091310028.png">
+<meta property="og:image" content="c:\Users\sy\%E5%AE%9E%E4%B9%A0%E6%95%99%E8%AE%AD\docker.assets\image-20251113091412093.png">
+<meta property="og:image" content="c:\Users\sy\%E5%AE%9E%E4%B9%A0%E6%95%99%E8%AE%AD\docker.assets\image-20251113093804097.png">
+<meta property="og:image" content="c:\Users\sy\%E5%AE%9E%E4%B9%A0%E6%95%99%E8%AE%AD\docker.assets\image-20251016100904301.png">
+<meta property="og:image" content="c:\Users\sy\%E5%AE%9E%E4%B9%A0%E6%95%99%E8%AE%AD\docker.assets\image-20251016101148955.png">
+<meta property="og:image" content="c:\Users\sy\%E5%AE%9E%E4%B9%A0%E6%95%99%E8%AE%AD\docker.assets\image-20251017164824910.png">
+<meta property="og:image" content="c:\Users\sy\%E5%AE%9E%E4%B9%A0%E6%95%99%E8%AE%AD\docker.assets\image-20251016101227401.png">
+<meta property="article:published_time" content="2025-11-13T06:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-13T09:03:28.674Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\sy\%E5%AE%9E%E4%B9%A0%E6%95%99%E8%AE%AD\docker.assets\image-20251112180040131.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,63 +165,599 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-docker" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2025" class="archive-year">2025</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/11/13/hello-world/" class="archive-article-date">
-  	<time datetime="2025-11-13T07:55:58.686Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-11-13</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/11/13/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      Docker基础命令以及DockerFile文件编写
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/11/13/docker/" class="archive-article-date">
+        
+        <a href="/2025/11/13/docker/" class="archive-article-date">
   	<time datetime="2025-11-13T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-11-13</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/11/13/docker/">Docker基础命令以及DockerFile文件编写</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h3 id="镜像管理命令"><a href="#镜像管理命令" class="headerlink" title="镜像管理命令"></a>镜像管理命令</h3><p>镜像是一切容器的基础，是只读的模板。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+<th align="left">常用示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>docker build</code></td>
+<td align="left">从 Dockerfile 构建镜像</td>
+<td align="left"><code>docker build -t my-app .</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker pull</code></td>
+<td align="left">从注册中心拉取镜像</td>
+<td align="left"><code>docker pull nginx:latest</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker push</code></td>
+<td align="left">将镜像推送到注册中心</td>
+<td align="left"><code>docker push my-username/my-app</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker images</code></td>
+<td align="left">列出本地所有镜像</td>
+<td align="left"><code>docker images</code> 或 <code>docker image ls</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker rmi</code></td>
+<td align="left">删除一个或多个本地镜像</td>
+<td align="left"><code>docker rmi my-app</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker tag</code></td>
+<td align="left">给镜像打标签</td>
+<td align="left"><code>docker tag my-app:latest my-app:v1.0</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker history</code></td>
+<td align="left">查看镜像的构建历史（分层信息）</td>
+<td align="left"><code>docker history nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker save</code></td>
+<td align="left">将镜像保存为 tar 归档文件</td>
+<td align="left"><code>docker save -o my-app.tar my-app:latest</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker load</code></td>
+<td align="left">从 tar 归档文件加载镜像</td>
+<td align="left"><code>docker load -i my-app.tar</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker inspect</code></td>
+<td align="left">查看镜像的详细信息（元数据）</td>
+<td align="left"><code>docker inspect nginx</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="容器生命周期管理命令"><a href="#容器生命周期管理命令" class="headerlink" title="容器生命周期管理命令"></a>容器生命周期管理命令</h3><p>容器是镜像的运行实例。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+<th align="left">常用示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>docker run</code></td>
+<td align="left"><strong>最重要</strong>：从镜像创建并启动一个新容器</td>
+<td align="left"><code>docker run -d -p 80:80 --name my-nginx nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker create</code></td>
+<td align="left">创建一个容器但不启动它</td>
+<td align="left"><code>docker create --name my-nginx nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker start</code></td>
+<td align="left">启动一个已停止的容器</td>
+<td align="left"><code>docker start my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker stop</code></td>
+<td align="left"><strong>优雅地</strong>停止一个运行中的容器</td>
+<td align="left"><code>docker stop my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker restart</code></td>
+<td align="left">重启容器</td>
+<td align="left"><code>docker restart my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker kill</code></td>
+<td align="left"><strong>强制</strong>立即停止一个容器（发送 SIGKILL）</td>
+<td align="left"><code>docker kill my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker pause</code></td>
+<td align="left">暂停容器内的所有进程</td>
+<td align="left"><code>docker pause my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker unpause</code></td>
+<td align="left">恢复容器内被暂停的进程</td>
+<td align="left"><code>docker unpause my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker rm</code></td>
+<td align="left">删除一个已停止的容器</td>
+<td align="left"><code>docker rm my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker update</code></td>
+<td align="left">动态更新容器的配置（如内存、CPU）</td>
+<td align="left"><code>docker update --memory 512m my-nginx</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="容器信息查看与交互命令"><a href="#容器信息查看与交互命令" class="headerlink" title="容器信息查看与交互命令"></a>容器信息查看与交互命令</h3><p>用于查看容器状态、日志或进入容器内部。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+<th align="left">常用示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>docker ps</code></td>
+<td align="left">列出正在运行的容器</td>
+<td align="left"><code>docker ps</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker ps -a</code></td>
+<td align="left">列出所有容器（包括已停止的）</td>
+<td align="left"><code>docker ps -a</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker logs</code></td>
+<td align="left">获取容器的日志</td>
+<td align="left"><code>docker logs my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker logs -f</code></td>
+<td align="left"><strong>实时跟踪</strong>（Follow）容器日志</td>
+<td align="left"><code>docker logs -f my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker exec</code></td>
+<td align="left"><strong>最重要</strong>：在运行中的容器内执行命令</td>
+<td align="left"><code>docker exec -it my-nginx /bin/bash</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker attach</code></td>
+<td align="left">附加到正在运行的容器（查看其输入输出流）</td>
+<td align="left"><code>docker attach my-nginx</code>（不常用）</td>
+</tr>
+<tr>
+<td align="left"><code>docker inspect</code></td>
+<td align="left">查看容器&#x2F;镜像的详细配置和状态信息</td>
+<td align="left"><code>docker inspect my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker top</code></td>
+<td align="left">查看容器内运行的进程</td>
+<td align="left"><code>docker top my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker stats</code></td>
+<td align="left"><strong>动态显示</strong>所有容器的资源使用情况（CPU、内存等）</td>
+<td align="left"><code>docker stats</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker diff</code></td>
+<td align="left">检查容器文件系统相对于其镜像的更改</td>
+<td align="left"><code>docker diff my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker port</code></td>
+<td align="left">查看容器的端口映射情况</td>
+<td align="left"><code>docker port my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker wait</code></td>
+<td align="left">阻塞直到容器停止，然后输出其退出代码</td>
+<td align="left"><code>docker wait my-nginx</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="网络管理命令"><a href="#网络管理命令" class="headerlink" title="网络管理命令"></a>网络管理命令</h3><p>管理 Docker 的网络（桥接、覆盖网络等）。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+<th align="left">常用示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>docker network ls</code></td>
+<td align="left">列出所有 Docker 网络</td>
+<td align="left"><code>docker network ls</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker network create</code></td>
+<td align="left">创建一个新的网络</td>
+<td align="left"><code>docker network create my-net</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker network connect</code></td>
+<td align="left">将容器连接到指定网络</td>
+<td align="left"><code>docker network connect my-net my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker network disconnect</code></td>
+<td align="left">断开容器与指定网络的连接</td>
+<td align="left"><code>docker network disconnect my-net my-nginx</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker network inspect</code></td>
+<td align="left">查看网络的详细信息</td>
+<td align="left"><code>docker network inspect bridge</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker network rm</code></td>
+<td align="left">删除一个网络</td>
+<td align="left"><code>docker network rm my-net</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker network prune</code></td>
+<td align="left">删除所有未使用的网络</td>
+<td align="left"><code>docker network prune</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="数据卷管理命令"><a href="#数据卷管理命令" class="headerlink" title="数据卷管理命令"></a>数据卷管理命令</h3><p>管理持久化数据和数据共享。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+<th align="left">常用示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>docker volume ls</code></td>
+<td align="left">列出所有数据卷</td>
+<td align="left"><code>docker volume ls</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker volume create</code></td>
+<td align="left">创建一个数据卷</td>
+<td align="left"><code>docker volume create my-vol</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker volume inspect</code></td>
+<td align="left">查看数据卷的详细信息</td>
+<td align="left"><code>docker volume inspect my-vol</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker volume rm</code></td>
+<td align="left">删除一个数据卷</td>
+<td align="left"><code>docker volume rm my-vol</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker volume prune</code></td>
+<td align="left">删除所有未使用的数据卷</td>
+<td align="left"><code>docker volume prune</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="系统与清理命令"><a href="#系统与清理命令" class="headerlink" title="系统与清理命令"></a>系统与清理命令</h3><p>管理 Docker 守护进程本身和清理资源。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+<th align="left">常用示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>docker system df</code></td>
+<td align="left">查看 Docker 磁盘使用情况（镜像、容器、卷）</td>
+<td align="left"><code>docker system df</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker system prune</code></td>
+<td align="left"><strong>强力清理</strong>：删除所有未使用的资源（停止的容器、无用的网络、构建缓存等）</td>
+<td align="left"><code>docker system prune</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker system prune -a</code></td>
+<td align="left"><strong>更强力清理</strong>：额外删除所有未被容器使用的镜像</td>
+<td align="left"><code>docker system prune -a</code>（谨慎使用）</td>
+</tr>
+<tr>
+<td align="left"><code>docker version</code></td>
+<td align="left">显示 Docker 客户端和服务器端的版本信息</td>
+<td align="left"><code>docker version</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker info</code></td>
+<td align="left">显示 Docker 系统的详细信息（容器、镜像数量、存储驱动等）</td>
+<td align="left"><code>docker info</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker events</code></td>
+<td align="left">从 Docker 服务器获取实时事件</td>
+<td align="left"><code>docker events</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="Docker-Compose-命令（用于多容器应用）"><a href="#Docker-Compose-命令（用于多容器应用）" class="headerlink" title="Docker Compose 命令（用于多容器应用）"></a>Docker Compose 命令（用于多容器应用）</h3><p>虽然 <code>docker-compose</code> 是一个独立的工具，但它与 Docker 紧密相关，用于定义和运行多容器应用。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+<th align="left">常用示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>docker compose up</code></td>
+<td align="left">创建并启动所有在 <code>docker-compose.yml</code> 中定义的服务</td>
+<td align="left"><code>docker compose up -d</code>（后台运行）</td>
+</tr>
+<tr>
+<td align="left"><code>docker compose down</code></td>
+<td align="left">停止并移除所有容器、网络等</td>
+<td align="left"><code>docker compose down</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker compose ps</code></td>
+<td align="left">列出 Compose 项目中的所有容器</td>
+<td align="left"><code>docker compose ps</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker compose logs</code></td>
+<td align="left">查看所有服务的日志</td>
+<td align="left"><code>docker compose logs -f web</code>（跟踪 web 服务日志）</td>
+</tr>
+<tr>
+<td align="left"><code>docker compose exec</code></td>
+<td align="left">在 Compose 服务的容器中执行命令</td>
+<td align="left"><code>docker compose exec db psql -U user</code></td>
+</tr>
+<tr>
+<td align="left"><code>docker compose build</code></td>
+<td align="left">构建或重新构建 Compose 服务中定义的镜像</td>
+<td align="left"><code>docker compose build</code></td>
+</tr>
+</tbody></table>
+<h3 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h3><h4 id="初识"><a href="#初识" class="headerlink" title="初识"></a>初识</h4><ul>
+<li><p>数据卷是宿主机中的一个目录或文件</p>
+</li>
+<li><p>当容器目录和数据卷目录绑定后，对方的修改会立即同步</p>
+</li>
+<li><p>一个数据卷可以被多个容器同时挂载</p>
+</li>
+<li><p>一个容器也可以被挂载多个数据卷</p>
+</li>
+</ul>
+<p>作用：</p>
+<ul>
+<li><p>容器数据持久化</p>
+</li>
+<li><p>外部机器和容器间接通信</p>
+</li>
+<li><p>容器挂载了同一个数据卷，可以进行数据交换</p>
+</li>
+</ul>
+<p>配置数据卷：（目录使用正斜杠或者双反斜杠）</p>
+<p>docker run -v 主机目录:容器目录 镜像名称</p>
+<p>docker run –mount type&#x3D;bind,source&#x3D;主机目录,target&#x3D;容器目录 镜像名称</p>
+<p>注意：</p>
+<p>1、如果目录不存在则会自动创建</p>
+<p>2、可以挂载多个数据卷</p>
+<h4 id="数据卷容器"><a href="#数据卷容器" class="headerlink" title="数据卷容器"></a>数据卷容器</h4><p>没看懂有什么用</p>
+<h2 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h2><h3 id="镜像原理"><a href="#镜像原理" class="headerlink" title="镜像原理"></a>镜像原理</h3><p><img src="C:\Users\sy\实习教训\docker.assets\image-20251112180040131.png" alt="image-20251112180040131"></p>
+<p><img src="C:\Users\sy\实习教训\docker.assets\image-20251113091310028.png" alt="image-20251113091310028"></p>
+<p><img src="C:\Users\sy\实习教训\docker.assets\image-20251113091412093.png" alt="image-20251113091412093"></p>
+<p><img src="C:\Users\sy\实习教训\docker.assets\image-20251113093804097.png" alt="image-20251113093804097"></p>
+<h3 id="Dockerfile-书写格式"><a href="#Dockerfile-书写格式" class="headerlink" title="Dockerfile 书写格式"></a>Dockerfile 书写格式</h3><ul>
+<li><p>每条指令都必须是大写字母开头。</p>
+</li>
+<li><p>指令后面可以跟随一个或多个参数。</p>
+</li>
+<li><p>指令按照它们在 Dockerfile 中的顺序执行。</p>
+</li>
+<li><p>Dockerfile 的第一行通常是一个 <code>FROM</code> 指令，指定基础镜像。</p>
+</li>
+<li><p><code>#</code> 开头的行是注释。</p>
+</li>
+</ul>
+<h3 id="常用DockerFile命令"><a href="#常用DockerFile命令" class="headerlink" title="常用DockerFile命令"></a>常用DockerFile命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FROM: 指定基础镜像。</span><br><span class="line">RUN: 容器创建时执行命令并创建新的镜像层。</span><br><span class="line">COPY: 将文件从宿主机复制到容器中。</span><br><span class="line">WORKDIR: 设置工作目录。</span><br><span class="line">CMD: 容器启动时执行的命令。</span><br><span class="line">EXPOSE: 声明容器将监听的端口。</span><br><span class="line">ENV: 设置环境变量。</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
+<h5 id="指令详解"><a href="#指令详解" class="headerlink" title="指令详解"></a>指令详解</h5><table>
+<thead>
+<tr>
+<th>Dockerfile 指令</th>
+<th>作用</th>
+<th>格式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FROM</td>
+<td>指定基础镜像。</td>
+<td>FROM <image_name>:&lt;tag&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td>LABEL</td>
+<td>添加镜像的元数据，使用键值对的形式。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>在镜像构建过程中执行命令。</td>
+<td>RUN &lt;command&gt;</td>
+<td>每次执行 <code>RUN</code> 指令都会创建一个新的镜像层。</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>指定容器创建时的默认命令。（可以被覆盖）</td>
+<td>CMD [“&lt;command&gt;”, “&lt;param1&gt;”, “&lt;param2&gt;”]</td>
+<td>如果在运行容器时指定了其他命令，<code>CMD</code> 中的命令将被覆盖。</td>
+</tr>
+<tr>
+<td>ENTRYPOINT</td>
+<td>设置容器创建时的主要命令。（不可被覆盖）</td>
+<td>ENTRYPOINT [“&lt;command&gt;”, “&lt;param1&gt;”, “&lt;param2&gt;”]</td>
+<td><code>ENTRYPOINT</code> 用于设置容器启动时运行的入口程序。与 <code>CMD</code> 不同，<code>ENTRYPOINT</code> 不会被命令行参数覆盖，但可以通过 <code>--entrypoint</code> 选项覆盖。</td>
+</tr>
+<tr>
+<td>EXPOSE</td>
+<td>声明容器运行时监听的特定网络端口。</td>
+<td>EXPOSE &lt;port&gt;</td>
+<td><code>EXPOSE</code> 声明了容器运行时监听的端口，但不会实际暴露端口。要暴露端口，需要在运行容器时使用 <code>-p</code> 参数。</td>
+</tr>
+<tr>
+<td>ENV</td>
+<td>在容器内部设置环境变量。</td>
+<td>ENV &lt;key&gt;&#x3D;&lt;value&gt;</td>
+<td>这些变量在容器运行时可以被应用程序使用</td>
+</tr>
+<tr>
+<td>ADD</td>
+<td>将文件、目录或远程URL复制到镜像中。</td>
+<td>ADD  &lt;src&gt; &lt;dest&gt;</td>
+<td>如果 <code>&lt;src&gt;</code> 是本地文件或目录，其行为与 <code>COPY</code> 相同。</td>
+</tr>
+<tr>
+<td>COPY</td>
+<td>将文件或目录从宿主机复制到镜像中。</td>
+<td>COPY  &lt;src&gt; &lt;dest&gt;</td>
+<td><code>&lt;src&gt;</code> 是宿主机路径，<code>&lt;dest&gt;</code> 是镜像路径。</td>
+</tr>
+<tr>
+<td>WORKDIR</td>
+<td>设置工作目录</td>
+<td>WORKDIR  &lt;path&gt;</td>
+<td><code>WORKDIR</code> 指定了后续指令（如 <code>COPY</code>、<code>RUN</code> 等）的工作目录。如果指定的目录不存在，Docker 会自动创建它</td>
+</tr>
+<tr>
+<td>ARG</td>
+<td>定义构建参数</td>
+<td>ARG &lt;key&gt;[&#x3D;<default_value>]</td>
+<td>这些参数可以在构建镜像时通过 <code>--build-arg</code> 选项传递值</td>
+</tr>
+<tr>
+<td>VOLUME</td>
+<td>声明一个挂载卷</td>
+<td>VOLUME &lt;path&gt;</td>
+<td><code>VOLUME</code> 指令声明了一个挂载卷，用于持久化数据。挂载卷可以在容器之间共享和重用</td>
+</tr>
+<tr>
+<td>USER</td>
+<td>切换用户</td>
+<td>USER &lt;username&gt;</td>
+<td><code>USER</code> 指令用于切换用户，后续指令将以该用户的身份执行</td>
+</tr>
+<tr>
+<td>HEALTHCHECK</td>
+<td>定义容器的健康检查命令</td>
+<td>HEALTHCHECK –interval&#x3D;&lt;interval&gt; –timeout&#x3D;&lt;timeout&gt; –start-period&#x3D;&lt;start-period&gt; –retries&#x3D;&lt;retries&gt; CMD &lt;command&gt;</td>
+<td><code>HEALTHCHECK</code> 指令用于定义容器的健康检查命令，Docker 会定期执行该命令来检查容器是否健康</td>
+</tr>
+<tr>
+<td>SHELL</td>
+<td></td>
+<td></td>
+<td>覆盖Docker中默认的shell，用于RUN、CMD和ENTRYPOINT指令。</td>
+</tr>
+<tr>
+<td>ONBUILD</td>
+<td></td>
+<td></td>
+<td>当该镜像被用作另一个构建过程的基础时，添加触发器。</td>
+</tr>
+<tr>
+<td>STOPSIGNAL</td>
+<td></td>
+<td></td>
+<td>设置发送给容器以退出的系统调用信号。</td>
+</tr>
+</tbody></table>
+<h3 id="常见流程"><a href="#常见流程" class="headerlink" title="常见流程"></a>常见流程</h3><ol>
+<li>选择基础镜像(FROM)</li>
+<li>设置维护者信息(LABEL)</li>
+<li>环境变量设置(ENV)</li>
+<li>复制应用代码(COPY或ADD)</li>
+<li>安装依赖(RUN)</li>
+<li>配置工作目录(WORKDIR)</li>
+<li>编译应用(RUN)</li>
+<li>暴露端口(EXPOSE)</li>
+<li>运行时命令(CMD或ENTRYPOINT)</li>
+</ol>
+<p>例：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用支持Java 25的基础镜像（目前可能需要使用早期访问版或自定义镜像）</span></span><br><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">25</span>-ea-<span class="number">22</span>-jdk-slim</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建容器时执行创建目录命令</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mkdir</span> -p /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置工作目录</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制JAR文件到容器中</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> target/*.jar ./</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露Spring Boot默认端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置JVM参数，当出现内存问题或需要性能优化时，才需要显式设置JVM参数</span></span><br><span class="line"><span class="keyword">ENV</span> JAVA_OPTS=<span class="string">&quot;-Xmx512m -Xms256m&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动应用</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;sh&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;java <span class="variable">$JAVA_OPTS</span> -jar app.jar&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定基础镜像，从私有镜像仓库 xxxx 拉取镜像</span></span><br><span class="line"><span class="comment">#镜像名称：public/alpine-jdk-11</span></span><br><span class="line"><span class="comment">#镜像标签：1</span></span><br><span class="line"><span class="keyword">FROM</span> xxxx/public/alpine-jdk-<span class="number">11</span>:<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#表明镜像作者|维护者</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> sy</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建容器时执行创建目录命令</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mkdir</span> -p /sy/app</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置工作目录，后续的命令都会在这个目录下执行</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /sy/app</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置环境变量，model是控制应用运行的模式，比如开发，测试，生产</span></span><br><span class="line"><span class="keyword">ENV</span> MODEL <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将文件添加到镜像中</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./target/*.tar.gz ./</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>编写完dockerFile文件后，要构建镜像后运行容器</p>
+<p><strong>构建镜像时要在项目文件所在目录进行cmd</strong>，不然找不到dockerFile文件，从而导致构建失败。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#构建镜像</span></span><br><span class="line">docker build -t 镜像名:版本号 .</span><br><span class="line"><span class="comment">#运行Docker容器</span></span><br><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -d -p 外面的端口:容器项目的端口 --name 容器名 镜像名:版本号</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="在idea中使用docker"><a href="#在idea中使用docker" class="headerlink" title="在idea中使用docker"></a>在idea中使用docker</h3><p>1.添加一个DockerFile配置</p>
+<p><img src="C:\Users\sy\实习教训\docker.assets\image-20251016100904301.png" alt="image-20251016100904301"></p>
+<p>2.指定DockerFile构建镜像和容器配置</p>
+<p><img src="C:\Users\sy\实习教训\docker.assets\image-20251016101148955.png" alt="image-20251016101148955"></p>
+<p>“Run Maven Goal”点击后，会弹出一个小窗口 ，用来输入要执行的maven命令，这里输入clean package -U -DskipTests，表示每次在构建镜像之前，都会将当前工程清理掉并且重新编译构建</p>
+<p><img src="C:\Users\sy\实习教训\docker.assets\image-20251017164824910.png" alt="image-20251017164824910"></p>
+<p>3.运行DockerFile配置</p>
+<p><img src="C:\Users\sy\实习教训\docker.assets\image-20251016101227401.png" alt="image-20251016101227401"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -222,7 +773,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -235,17 +786,108 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/11/13/docker/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2025/11/13/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
   
   
-    </div></section>
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -268,8 +910,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
