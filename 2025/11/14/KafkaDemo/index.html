@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>KafkaDemo | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="简单的Kafka程序编写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KafkaDemo">
+<meta property="og:url" content="http://example.com/2025/11/14/KafkaDemo/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简单的Kafka程序编写">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-11-14T10:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-14T10:08:00.611Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="kafka">
+<meta property="article:tag" content="学习">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -132,16 +138,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-KafkaDemo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-KafkaDemo" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/11/14/KafkaDemo/">KafkaDemo</a>
+    <h1 class="article-title" itemprop="name">
+      KafkaDemo
     </h1>
   
 
@@ -155,11 +159,81 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>本文主要是介绍一个简单的Kafka的Java程序，如何在容器部署Kafka，简单认识Kafka的一些配置，其他配置需要根据业务自行去官网查询，帮助自己理解消息流转的流程：消息从客户端是怎么走到消费者，看看日志会有什么输出</p>
-        
-          <a class="article-more-a" href="/2025/11/14/KafkaDemo/#more">more >></a>
-        
+<span id="more"></span>
+
+<p>我没有在本地下载Kafka，因为3.x以上的版本都是要jdk17及以上的，我的jdk是11，而支持jdk11的kafka要2.8.x，但是2.8.x的都要下载zookeeper，我比较懒，直接用docker配置单节点kafka了</p>
+<h3 id="编写docker-compose-yml文件"><a href="#编写docker-compose-yml文件" class="headerlink" title="编写docker-compose.yml文件"></a>编写docker-compose.yml文件</h3><p>找一个文件夹，然后编写docker-compose.yml文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">zookeeper:</span></span><br><span class="line">    <span class="comment">#3.8版本的Zookeeper</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zookeeper:3.8</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zookeeper</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;2181:2181&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment">#当前节点ID</span></span><br><span class="line">      <span class="attr">ZOO_MY_ID:</span> <span class="number">1</span></span><br><span class="line">      <span class="comment">#单节点配置，只有一个server配置</span></span><br><span class="line">      <span class="comment">#2888：节点间数据同步端口</span></span><br><span class="line">      <span class="comment">#3888：领导者选举端口</span></span><br><span class="line">      <span class="comment">#2181：客户端连接端口</span></span><br><span class="line">      <span class="attr">ZOO_SERVERS:</span> <span class="string">server.1=zookeeper:2888:3888;2181</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">kafka:</span></span><br><span class="line">    <span class="comment">#使用wurstmeister维护的Kafka镜像</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">wurstmeister/kafka:2.13-2.8.1</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">kafka</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;9092:9092&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment">## 客户端连接时用的地址(对宿主机外部)</span></span><br><span class="line">      <span class="attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="string">PLAINTEXT://localhost:9092</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment"># 监听地址 - Kafka内部监听的地址 </span></span><br><span class="line">      <span class="comment">#0.0.0.0 = 所有网络接口(对容器内部)</span></span><br><span class="line">      <span class="attr">KAFKA_LISTENERS:</span> <span class="string">PLAINTEXT://0.0.0.0:9092</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment"># 连接ZooKeeper的地址</span></span><br><span class="line">      <span class="attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="string">zookeeper:2181</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment"># 自动创建主题：主题名:分区数:副本数</span></span><br><span class="line">      <span class="attr">KAFKA_CREATE_TOPICS:</span> <span class="string">&quot;test-topic:3:1&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 依赖关系：先启动zookeeper</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zookeeper</span></span><br></pre></td></tr></table></figure>
+
+<p>从外部的网络连接Kafka容器内部的broker的工作流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">客户端连接请求</span><br><span class="line">     ↓</span><br><span class="line">查找 宿主机 的ADVERTISED_LISTENERS (localhost:9092)</span><br><span class="line">     ↓</span><br><span class="line">端口映射9092:9092</span><br><span class="line">     ↓</span><br><span class="line">连接到 容器内部 的Broker 的 LISTENERS (0.0.0.0:9092)</span><br><span class="line">     ↓</span><br><span class="line">成功建立连接</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="执行docker-compose-yml文件"><a href="#执行docker-compose-yml文件" class="headerlink" title="执行docker-compose.yml文件"></a>执行docker-compose.yml文件</h3><p>在存放docker-compose.yml文件的位置cmd，进入到所属目录的终端</p>
+<p>执行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#前面的就是文件名，不一定是docker-compose</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>这样子就创建完镜像和容器了</p>
+<h3 id="Demo代码实现"><a href="#Demo代码实现" class="headerlink" title="Demo代码实现"></a>Demo代码实现</h3><p>application配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">kafka:</span></span><br><span class="line">    <span class="comment"># Kafka服务器地址（就是Docker容器的端口）</span></span><br><span class="line">    <span class="attr">bootstrap-servers:</span> <span class="string">localhost:9092</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 生产者配置</span></span><br><span class="line">    <span class="attr">producer:</span></span><br><span class="line">      <span class="comment">#把kafka的key和value序列化，这是必需配置，因为kafka只能用字节数组进行传输</span></span><br><span class="line">      <span class="attr">key-serializer:</span> <span class="string">org.apache.kafka.common.serialization.StringSerializer</span></span><br><span class="line">      <span class="attr">value-serializer:</span> <span class="string">org.apache.kafka.common.serialization.StringSerializer</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 消费者配置</span></span><br><span class="line">    <span class="attr">consumer:</span></span><br><span class="line">      <span class="comment">#消费者组ID必须配置</span></span><br><span class="line">      <span class="attr">group-id:</span> <span class="string">demo-group</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">#告诉消费者从那条消息开始消费</span></span><br><span class="line">      <span class="attr">auto-offset-reset:</span> <span class="string">earliest</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">#把把kafka的key和value反序列化</span></span><br><span class="line">      <span class="attr">key-deserializer:</span> <span class="string">org.apache.kafka.common.serialization.StringDeserializer</span></span><br><span class="line">      <span class="attr">value-deserializer:</span> <span class="string">org.apache.kafka.common.serialization.StringDeserializer</span></span><br></pre></td></tr></table></figure>
+
+<p>生产者必须的配置：kafka节点地址，key和value的序列化</p>
+<p>消费者必须的配置：kafka节点地址，key和value的反序列化，消费者组ID</p>
+<p>其他的配置要看业务需求进行配置，这里只是简单的demo，所以就只是配置了必须的配置</p>
+<p>java代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">KafkaDemoController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> KafkaTemplate&lt;String, String&gt; kafkaTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 发送消息</span></span><br><span class="line">    <span class="comment">//这里是Tomcat的8080端口接受请求</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/send&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sendMessage</span><span class="params">(<span class="meta">@RequestBody</span> String message)</span> &#123;</span><br><span class="line">        <span class="comment">//这里是Kafka客户端建立TCP连接到9092，从而跟配置中的localhost:9092建立连接</span></span><br><span class="line">        <span class="comment">//这里没有设置key，默认为null，那么就会把消息均匀分配给各个分区</span></span><br><span class="line">        kafkaTemplate.send(<span class="string">&quot;test-topic&quot;</span>, message);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;发送成功: &quot;</span> + message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 接收消息</span></span><br><span class="line">    <span class="comment">//topics一定要与生产者的一致，不然获取不到信息</span></span><br><span class="line">    <span class="meta">@KafkaListener(topics = &quot;test-topic&quot;, groupId = &quot;demo-group&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveMessage</span><span class="params">(String message)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;收到消息: &quot;</span> + message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就是简单的demo代码了！</p>
+<h3 id="日志信息"><a href="#日志信息" class="headerlink" title="日志信息"></a>日志信息</h3><p>我发现SpringBoot初始化就会初始化消费者配置，而生产者是等到第一条消息才开始初始化配置</p>
+<p>查到的信息：</p>
+<p>消费者是被动等待，因此必须提前准备，避免消息丢失</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">加入消费者组</span><br><span class="line">// 消费者需要时间：</span><br><span class="line">启动 → 加入消费者组 → 分配分区 → 开始消费</span><br><span class="line"></span><br><span class="line">Offset提交管理</span><br><span class="line">// 消费者需要立即知道从哪里开始消费</span><br><span class="line">// 需要查询最新的offset位置</span><br></pre></td></tr></table></figure>
+
+<p>生产者是主动发送，可以按需准备，懒加载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 不是所有服务都需要发送消息</span><br><span class="line">// 懒加载避免创建不必要的连接和线程</span><br><span class="line">// 生产者连接建立相对较快</span><br><span class="line">// 延迟初始化可以加快应用启动速度</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INFO <span class="number">16608</span> --- [ad | producer-<span class="number">1</span>] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-<span class="number">1</span>] Resetting the last seen epoch of partition demo-topic-<span class="number">0</span> to <span class="number">0</span> since the associated topicId changed from <span class="literal">null</span> to PemWOCu_S4KKnwrkWazvdQ</span><br></pre></td></tr></table></figure>
+
+<p>producer-1 这个是创建KafkaTemplate实例的ID，跟kafka节点ID无关</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">null to PemWOCu_S4KKnwrkWazvdQ 这是第一次向demo-topic主题发送信息，kafka自动为主题生成唯一ID</span><br></pre></td></tr></table></figure>
+
+<p>分区epoch重置是保证Kafka内部的一致性的机制，用Epoch来区分不同Leader的任期和数据范围</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">分区epoch重置</span><br><span class="line">Resetting the last seen epoch of partition demo-topic-0 to 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>触发重置的条件</strong>：</p>
+<ol>
+<li><strong>主题第一次创建</strong></li>
+<li><strong>Leader重新选举</strong></li>
+<li><strong>分区数据截断</strong></li>
+<li><strong>集群配置变更</strong></li>
+</ol>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -194,16 +268,75 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2025/11/14/KafkaDemo/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/11/14/KafkaDemo/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2025/11/14/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAhexo%E6%A1%86%E6%9E%B6%E7%9A%84%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">windows从零开始搭建hexo博客</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -223,186 +356,14 @@
 
 
 
-
   
-    <article id="post-从零开始搭建hexo框架的博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/11/14/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAhexo%E6%A1%86%E6%9E%B6%E7%9A%84%E5%8D%9A%E5%AE%A2/">windows从零开始搭建hexo博客</a>
-    </h1>
   
 
-        
-        <a href="/2025/11/14/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAhexo%E6%A1%86%E6%9E%B6%E7%9A%84%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2025-11-14T02:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-11-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文主要是帮助还未搭建过个人博客的小白搭建属于自己的博客，以及搭建完博客后如何上传自己的文章和解决图片不显示问题</p>
-        
-          <a class="article-more-a" href="/2025/11/14/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAhexo%E6%A1%86%E6%9E%B6%E7%9A%84%E5%8D%9A%E5%AE%A2/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2025/11/14/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAhexo%E6%A1%86%E6%9E%B6%E7%9A%84%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/11/13/docker/">Docker基础命令以及DockerFile文件编写</a>
-    </h1>
   
 
-        
-        <a href="/2025/11/13/docker/" class="archive-article-date">
-  	<time datetime="2025-11-13T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-11-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文主要是介绍docker命令行以及dockerFile文件的编写</p>
-        
-          <a class="article-more-a" href="/2025/11/13/docker/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2025/11/13/docker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+
   
 
 
@@ -425,8 +386,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
