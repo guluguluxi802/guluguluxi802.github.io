@@ -173,89 +173,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>本文主要是帮助还从未搭建过个人博客的小白搭建属于自己的博客，以及搭建完博客后如何上传自己的文章和解决图片不显示问题</p>
-<!--  more -->
-
-<h3 id="准备node-js"><a href="#准备node-js" class="headerlink" title="准备node.js"></a>准备node.js</h3><p>hexo的前端界面是需要node.js支持的，因此需要先下载好node.js，直接去官网下载就好</p>
-<p>下载好后打开终端（win+R+cmd）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">这两个指令是检查node.js是否下载成功的，成功的话是会显示下载的版本</span><br><span class="line">npm -v</span><br><span class="line">cnpm -v</span><br></pre></td></tr></table></figure>
-
-<h3 id="搭建hexo"><a href="#搭建hexo" class="headerlink" title="搭建hexo"></a>搭建hexo</h3><p>接着配置镜像源</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">旧的淘宝镜像仓库（用不了了）：http://registry.npm.taobao.org</span><br><span class="line">下面的是新的</span><br><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
-
-<p>检查cnpm是否安装好</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm -v</span><br></pre></td></tr></table></figure>
-
-<p>安装hexo框架</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<p>检查是否安装好</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-
-<p>自己在磁盘找一个喜欢的位置创建没有中文的文件夹，后续操作都是在这个文件夹里进行</p>
-<p>比如我找的：C:\Users\sy\blog</p>
-<p><strong>如果后续搭建博客过程中有问题，那就把自己新建的这个文件夹删掉，重新来过</strong>（我删掉了两次，重新搭建了三次才成功完成）</p>
-<p>在C:\Users\sy\blog中使用cmd，这样可以快捷进入到该文件的终端位置，省去cd</p>
-<p>进入到C:\Users\sy\blog终端，初始化hexo，成功的话会提示：Start blogging with Hexo!</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
-<p>启动hexo博客，输入localhost:4000可以访问到博客界面了，如果不行那说明出问题了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p>但是这个只是本地的，肯定不符合我的云端持久化博客，我还想要别人可以访问我的博客，我选择了github来存储文章</p>
-<h3 id="github连接hexo"><a href="#github连接hexo" class="headerlink" title="github连接hexo"></a>github连接hexo</h3><p>登录自己的github，创建一个新的仓库</p>
-<p>一定要注意（本人就是在这里出问题，导致要重来两次的）：</p>
-<ul>
-<li>github的用户名<strong>一定要是小写</strong>，<strong>全部小写</strong>，如果有大写的一定要改名字，因为浏览器在访问博客时会把大写的英文全部改为小写，导致404，进入不了个人博客</li>
-<li>创建新的仓库的命名必须是这样：用户名.github.io</li>
-</ul>
-<p>在自己建的文件位置安装git的部署插件，比如：博主的C:\Users\sy\blog</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>修改C:\Users\sy\blog中的_config.yml，划到最底部</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">原本：</span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: ”</span><br><span class="line">修改为：</span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  ##这里就是你的github的仓库的地址，可以去github直接复制就行</span><br><span class="line">  repo: https://github.com/guluguluxi802/guluguluxi802.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-<p>注意：冒号后面一定要有空格，不然会出错的</p>
-<p>在自己建的文件位置配置github的用户名和邮箱，右键选择更多，然后选择Open Git Bash here，比如博主的就是C:\Users\sy\blog</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 设置用户名和邮箱</span><br><span class="line">git config --global user.name &quot;你的用户名&quot;</span><br><span class="line">git config --global user.email &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure>
-
-<p>把数据部署到远端</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-
-
-<p>至此，个人博客已经搭建完成了！！！</p>
-<p>完成之后需要等个1分钟吧，它部署没这么快，如果过了一分钟，访问 用户名.github.io还是加载不了，那可能是你前面步骤出问题了，需要检查或者重新来。</p>
-<p>如果出现404，那你需要等一下，后续还是不行的话，可能就是你的用户名有大写，而浏览器会把用户名全部改为小写，导致访问不了。</p>
-<h3 id="主题选择"><a href="#主题选择" class="headerlink" title="主题选择"></a>主题选择</h3><p>我这边推荐一个github.com&#x2F;litten&#x2F;hexo-theme-yilia</p>
-<p>接着继续在你博客的文件夹进行操作，cmd进入到这个文件夹的终端</p>
-<p>下载yilia主题到本地</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia </span><br></pre></td></tr></table></figure>
-
-<p> 修改hexo根目录下的 _config.yml 文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">原本：</span><br><span class="line">theme: landscape</span><br><span class="line">修改：</span><br><span class="line">theme: yilia</span><br></pre></td></tr></table></figure>
-
-<p>接着就是三件套</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p>主题更换完成！！！需要等一下才可以显示新的主题！</p>
-<h3 id="如何上传自己的md文档"><a href="#如何上传自己的md文档" class="headerlink" title="如何上传自己的md文档"></a>如何上传自己的md文档</h3><p>第一种：最简单的，把自己的md文档直接复制到博客目录下的source\_posts，比如博主的C:\Users\sy\blog\source\_posts</p>
-<p>第二种：使用命令复制</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 在命令提示符中</span><br><span class="line">copy &quot;C:\Users\sy\test\docker.md&quot; &quot;C:\Users\sy\blog\source\_posts\docker.md&quot;</span><br></pre></td></tr></table></figure>
-
-<p>然后在md文档就开头添加正确的Front Matter：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &quot;您的文章标题&quot;</span><br><span class="line">date: 2024-01-15 14:00:00</span><br><span class="line">tags: [标签1, 标签2]</span><br><span class="line">categories: [分类名称]</span><br><span class="line">description: &quot;文章描述&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>然后再来三件套，上传数据到github</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<h3 id="解决md文档图片不显示问题"><a href="#解决md文档图片不显示问题" class="headerlink" title="解决md文档图片不显示问题"></a>解决md文档图片不显示问题</h3><p>修改md文档的偏好设置-&gt;图像-&gt;优先使用相对路径（打勾）</p>
-<p>接着添加一个文件夹，在source\images\md文档名称，没有就自己新建，然后把图片都复制过来</p>
-<p>接着就是把原本md文档的图片路径改为自己设置的文件路径，比如博主的：..&#x2F;images&#x2F;docker&#x2F;image-20251016100904301.png</p>
-<p>然后再来三件套</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p>过一会就可以显示图片了</p>
-
+        
+          <a class="article-more-a" href="/2025/11/14/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAhexo%E6%A1%86%E6%9E%B6%E7%9A%84%E5%8D%9A%E5%AE%A2/#more">more >></a>
+        
       
 
       
@@ -355,11 +275,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
         		</li>
       		
 		</ul>
@@ -503,11 +423,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">教程</a>
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+                <a href="javascript:void(0)" class="js-tag color3">教程</a>
               </li>
             
             <div class="clearfix"></div>
